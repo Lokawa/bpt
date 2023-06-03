@@ -43,7 +43,7 @@ private:
         {
             int pos=lower(index);
             if (size==pos) return -1;
-            if (val[pos]!=index) return -2;
+            if (val[pos]!=index) return 1;
             --size;
             for (int i=pos;i<size;i++) val[i]=val[i+1];
             return 0;
@@ -363,9 +363,8 @@ public:
                                             son.key[k]=son.key[k-1];
                                             son.child[k]=son.child[k-1];
                                         }
-                                        son.key[0]=pren.key[pren.size-1];
-                                        son.child[0]=pren.child[pren.size-1];
-                                        pren.size--;
+                                        son.key[0]=pren.key[--pren.size];
+                                        son.child[0]=pren.child[pren.size];
                                         son.size++;
                                         f.key[i-1]=son.key[0];
                                         node_river.update(pren,f.child[i-1]);
@@ -598,7 +597,6 @@ public:
                 f.key[f.size] = f.key[f.size + 1];
                 node_river.update(pren, f.child[i - 1]);
             }
-            node_river.update(f, position);
             return;
         }
         node_river.update(son,f.child[i]);
