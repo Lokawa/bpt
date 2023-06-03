@@ -67,8 +67,8 @@ int main() {
                 printf("%d\n", ans[ans.size() - 1]);
             } else puts("null");
         } else if (cmd[0] == 'd') {
-//            scanf("%s%d", val.first.index, &val.second);
-//            bpTree.remove(val);
+            scanf("%s%d", val.first.index, &val.second);
+            bpTree.remove(val);
         }
 
     }
