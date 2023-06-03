@@ -7,9 +7,9 @@ template<class Key, class T, int M = 100, int L = 100>
 class BPTree {
 private:
     struct val_leaf {
-        int size;
+        int size=0;
         T val[400];
-        int next;
+        int next=0;
         val_leaf()
         {
             size=0;
@@ -43,7 +43,7 @@ private:
         {
             int pos=lower(index);
             if (size==pos) return -1;
-            if (val[pos]!=index) return 1;
+            if (val[pos]!=index) return -2;
             --size;
             for (int i=pos;i<size;i++) val[i]=val[i+1];
             return 0;
@@ -127,7 +127,7 @@ public:
             } else
             {
                 val_leaf nv;
-                for (int i=200;i<400;i++) nv.val[i-200]=v.val[i];
+                for (int i=200;i<400;++i) nv.val[i-200]=v.val[i];
                 nv.size=200;
                 v.size=200;
                 if (val>v.val[199]) nv.insert(val); else v.insert(val);
@@ -200,13 +200,13 @@ public:
                     node new_;
                     new_.leaf=true;
                     int mid=rt.size>>1;
-                    new_.size=M-mid+1;
-                    rt.size=mid;
-                    for (int j=mid;j<M;j++)
+                    for (int j=mid;j<=M;j++)
                     {
                         new_.child[j-mid]=rt.child[j];
                         new_.key[j-mid]=rt.key[j];
                     }
+                    new_.size=M-mid+1;
+                    rt.size=mid;
                     new_.next=rt.next;
                     a.first=node_river.write(new_);
                     rt.next=a.first;
